@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">倒悬回廊</string>
+    <string name="title_activity_main">倒悬回廊</string>
+    <string name="package_name">com.invertedcorridor.mobile</string>
+    <string name="custom_url_scheme">com.invertedcorridor.mobile</string>
+</resources>

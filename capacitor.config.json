@@ -1,0 +1,6 @@
+{
+  "appId": "com.invertedcorridor.mobile",
+  "appName": "倒悬回廊",
+  "webDir": "www",
+  "bundledWebRuntime": false
+}

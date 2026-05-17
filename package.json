@@ -1,0 +1,48 @@
+{
+  "name": "inverted-corridor",
+  "version": "1.0.0",
+  "description": "Desktop wrapper for the Inverted Corridor static game.",
+  "main": "main.js",
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build:web": "node scripts/prepare-web.js",
+    "android:sync": "npm run build:web && npx cap sync android",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^8.3.4",
+    "@capacitor/cli": "^8.3.4",
+    "@capacitor/core": "^8.3.4",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.invertedcorridor.desktop",
+    "productName": "Inverted Corridor",
+    "directories": {
+      "output": "release_portable"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "index.html",
+      "poster.html",
+      "poster.png"
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "portable": {
+      "artifactName": "Inverted-Corridor-Portable-${version}.exe"
+    }
+  }
+}

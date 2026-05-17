@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>倒悬回廊 海报</title>
+  <style>
+    :root {
+      --bg-1: #05060a;
+      --bg-2: #0b0c14;
+      --bg-3: #150d12;
+      --gold: #b89f68;
+      --gold-soft: rgba(184, 159, 104, 0.25);
+      --text: #e1d4b8;
+      --muted: #97886e;
+      --mist: rgba(163, 176, 205, 0.18);
+      --blood: #6b2632;
+      --panel: rgba(12, 11, 17, 0.68);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(74, 86, 118, 0.26), transparent 22%),
+        radial-gradient(circle at 50% 100%, rgba(92, 27, 39, 0.28), transparent 48%),
+        linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 48%, var(--bg-3) 100%);
+      font-family: "Georgia", "Times New Roman", serif;
+      color: var(--text);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle, transparent 42%, rgba(0, 0, 0, 0.62) 100%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent 34%, rgba(255, 255, 255, 0.015) 66%, transparent);
+      mix-blend-mode: screen;
+      opacity: 0.55;
+    }
+
+    .poster {
+      position: relative;
+      width: min(92vw, 900px);
+      aspect-ratio: 3 / 5;
+      min-height: 1280px;
+      overflow: hidden;
+      border-radius: 34px;
+      border: 1px solid rgba(184, 159, 104, 0.35);
+      background:
+        radial-gradient(circle at 50% 18%, rgba(118, 133, 173, 0.14), transparent 18%),
+        linear-gradient(180deg, rgba(8, 10, 16, 0.92), rgba(7, 7, 12, 0.92));
+      box-shadow:
+        0 40px 120px rgba(0, 0, 0, 0.55),
+        inset 0 0 0 1px rgba(255, 245, 220, 0.03);
+      isolation: isolate;
+    }
+
+    .poster::before,
+    .poster::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 24px;
+      pointer-events: none;
+    }
+
+    .poster::before {
+      border: 1px solid rgba(184, 159, 104, 0.18);
+    }
+
+    .poster::after {
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 4px 4px, 4px 4px;
+      mix-blend-mode: soft-light;
+      opacity: 0.08;
+    }
+
+    .moon {
+      position: absolute;
+      top: 78px;
+      right: 88px;
+      width: 152px;
+      height: 152px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(181, 190, 212, 0.58), rgba(122, 135, 170, 0.2) 55%, transparent 72%);
+      filter: blur(1px);
+      box-shadow: 0 0 90px rgba(140, 152, 188, 0.16);
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(7, 9, 13, 0.98), rgba(10, 9, 14, 0.92));
+      transform: translateX(20px);
+    }
+
+    .mist {
+      position: absolute;
+      left: -6%;
+      right: -6%;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(157, 174, 209, 0.14), transparent 68%);
+      filter: blur(18px);
+      opacity: 0.85;
+    }
+
+    .mist.one { top: 180px; }
+    .mist.two { top: 520px; }
+    .mist.three { bottom: 130px; opacity: 0.45; }
+
+    .headline {
+      position: absolute;
+      top: 74px;
+      left: 72px;
+      right: 72px;
+      z-index: 2;
+    }
+
+    .meta {
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+
+    .title {
+      margin: 0;
+      font-size: clamp(58px, 8vw, 98px);
+      line-height: 0.96;
+      letter-spacing: 8px;
+      color: #e8dab9;
+      text-shadow:
+        0 0 24px rgba(184, 159, 104, 0.18),
+        0 18px 40px rgba(0, 0, 0, 0.34);
+    }
+
+    .tagline {
+      width: min(470px, 100%);
+      margin-top: 24px;
+      color: #d5c6a7;
+      font-size: 22px;
+      line-height: 1.8;
+      text-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .tower,
+    .bridge,
+    .stairs,
+    .altar,
+    .rune,
+    .doll {
+      position: absolute;
+    }
+
+    .tower {
+      bottom: 250px;
+      width: 118px;
+      background: linear-gradient(180deg, rgba(64, 65, 79, 0.96), rgba(24, 25, 34, 0.98));
+      clip-path: polygon(22% 0%, 50% 12%, 78% 0%, 86% 16%, 100% 18%, 100% 100%, 0% 100%, 0% 18%, 14% 16%);
+      box-shadow: 0 24px 40px rgba(0, 0, 0, 0.34);
+    }
+
+    .tower.left {
+      left: 94px;
+      height: 340px;
+      transform: skewY(-6deg);
+    }
+
+    .tower.right {
+      right: 112px;
+      height: 420px;
+      transform: skewY(7deg);
+    }
+
+    .tower.center {
+      left: 50%;
+      bottom: 300px;
+      width: 156px;
+      height: 470px;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, rgba(71, 66, 76, 0.96), rgba(21, 21, 29, 0.98));
+    }
+
+    .tower::before {
+      content: "";
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      top: 52px;
+      height: 12px;
+      background: linear-gradient(90deg, transparent, rgba(184, 159, 104, 0.42), transparent);
+      opacity: 0.8;
+    }
+
+    .tower::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 54px;
+      width: 26px;
+      height: 72px;
+      transform: translateX(-50%);
+      border-radius: 20px 20px 0 0;
+      background: radial-gradient(circle at 50% 30%, rgba(215, 184, 116, 0.4), rgba(49, 32, 26, 0.96));
+      box-shadow: 0 0 26px rgba(184, 159, 104, 0.12);
+    }
+
+    .bridge {
+      height: 22px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, rgba(55, 53, 64, 0.96), rgba(96, 86, 91, 0.96), rgba(41, 39, 49, 0.96));
+      border: 1px solid rgba(184, 159, 104, 0.18);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .bridge.one {
+      left: 208px;
+      bottom: 566px;
+      width: 196px;
+      transform: rotate(-16deg);
+    }
+
+    .bridge.two {
+      right: 192px;
+      bottom: 476px;
+      width: 204px;
+      transform: rotate(22deg);
+    }
+
+    .bridge.three {
+      left: 50%;
+      bottom: 360px;
+      width: 256px;
+      transform: translateX(-50%) rotate(-4deg);
+    }
+
+    .stairs {
+      width: 200px;
+      height: 116px;
+      background:
+        repeating-linear-gradient(
+          180deg,
+          rgba(115, 107, 115, 0.92) 0 10px,
+          rgba(36, 34, 42, 0.96) 10px 20px
+        );
+      border: 1px solid rgba(184, 159, 104, 0.16);
+      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.34);
+    }
+
+    .stairs.one {
+      left: 142px;
+      bottom: 420px;
+      transform: skewX(-35deg) rotate(-18deg);
+    }
+
+    .stairs.two {
+      right: 138px;
+      bottom: 312px;
+      transform: skewX(35deg) rotate(16deg);
+    }
+
+    .altar {
+      left: 50%;
+      bottom: 290px;
+      width: 122px;
+      height: 122px;
+      transform: translateX(-50%) rotate(45deg);
+      border-radius: 18px;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(216, 204, 172, 0.65), rgba(170, 145, 97, 0.2) 40%, rgba(31, 26, 25, 0.96) 82%);
+      border: 1px solid rgba(214, 192, 146, 0.32);
+      box-shadow:
+        0 0 44px rgba(214, 196, 154, 0.15),
+        0 22px 44px rgba(0, 0, 0, 0.34);
+    }
+
+    .altar::before {
+      content: "";
+      position: absolute;
+      inset: 24px;
+      border: 1px solid rgba(224, 211, 177, 0.45);
+      border-radius: 12px;
+    }
+
+    .rune {
+      width: 46px;
+      height: 46px;
+      transform: rotate(45deg);
+      border-radius: 10px;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(191, 92, 109, 0.9), rgba(101, 27, 40, 0.95) 70%, rgba(40, 14, 18, 1) 100%);
+      border: 1px solid rgba(215, 125, 137, 0.4);
+      box-shadow:
+        0 0 24px rgba(165, 53, 72, 0.24),
+        0 12px 20px rgba(0, 0, 0, 0.28);
+    }
+
+    .rune::after {
+      content: "";
+      position: absolute;
+      inset: 11px;
+      border-top: 1px solid rgba(255, 221, 221, 0.58);
+      border-left: 1px solid rgba(255, 221, 221, 0.42);
+      transform: rotate(45deg);
+      opacity: 0.9;
+    }
+
+    .rune.one {
+      left: 270px;
+      bottom: 524px;
+    }
+
+    .rune.two {
+      right: 254px;
+      bottom: 408px;
+    }
+
+    .rune.three {
+      left: 50%;
+      bottom: 238px;
+      transform: translateX(-50%) rotate(45deg);
+    }
+
+    .doll {
+      left: 50%;
+      bottom: 382px;
+      width: 30px;
+      height: 78px;
+      transform: translateX(-50%);
+      filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+    }
+
+    .doll::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 18px;
+      height: 18px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: rgba(10, 11, 15, 0.98);
+    }
+
+    .doll::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 14px;
+      width: 24px;
+      height: 60px;
+      transform: translateX(-50%);
+      clip-path: polygon(50% 0%, 88% 24%, 72% 100%, 28% 100%, 12% 24%);
+      background: linear-gradient(180deg, rgba(19, 21, 28, 0.98), rgba(8, 9, 13, 1));
+      box-shadow: 0 0 16px rgba(159, 175, 214, 0.08);
+    }
+
+    .copy {
+      position: absolute;
+      left: 72px;
+      right: 72px;
+      bottom: 76px;
+      display: grid;
+      gap: 18px;
+      z-index: 2;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(20, 19, 26, 0.82), rgba(9, 9, 14, 0.78));
+      border: 1px solid rgba(184, 159, 104, 0.28);
+      border-radius: 22px;
+      padding: 20px 22px;
+      box-shadow:
+        0 18px 44px rgba(0, 0, 0, 0.32),
+        inset 0 0 0 1px rgba(255, 240, 214, 0.025);
+      backdrop-filter: blur(10px);
+    }
+
+    .panel h3 {
+      margin: 0 0 12px;
+      color: #e8d7af;
+      font-size: 22px;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    .panel p {
+      margin: 0;
+      color: #cfbf9f;
+      font-size: 18px;
+      line-height: 1.9;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      color: #dbcda9;
+      font-size: 16px;
+      letter-spacing: 1px;
+      background: rgba(255, 255, 255, 0.035);
+      border: 1px solid rgba(184, 159, 104, 0.18);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 15px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .seal {
+      padding: 12px 18px;
+      border-radius: 999px;
+      color: #f0dfba;
+      background:
+        linear-gradient(180deg, rgba(100, 73, 37, 0.64), rgba(35, 27, 18, 0.95)),
+        radial-gradient(circle at 50% 0%, rgba(243, 219, 160, 0.14), transparent 55%);
+      border: 1px solid rgba(184, 159, 104, 0.42);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.24);
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.11;
+      mix-blend-mode: screen;
+      background-image:
+        radial-gradient(rgba(255, 255, 255, 0.65) 0.45px, transparent 0.55px),
+        radial-gradient(rgba(255, 255, 255, 0.5) 0.35px, transparent 0.45px);
+      background-size: 7px 7px, 9px 9px;
+      background-position: 0 0, 3px 4px;
+    }
+
+    @media (max-width: 980px) {
+      body {
+        padding: 12px;
+      }
+
+      .poster {
+        width: min(96vw, 900px);
+        min-height: 1100px;
+      }
+
+      .headline,
+      .copy {
+        left: 34px;
+        right: 34px;
+      }
+
+      .headline {
+        top: 42px;
+      }
+
+      .title {
+        font-size: clamp(46px, 10vw, 80px);
+        letter-spacing: 5px;
+      }
+
+      .tagline,
+      .panel p,
+      .chip {
+        font-size: 16px;
+      }
+
+      .moon {
+        right: 34px;
+        top: 56px;
+        width: 120px;
+        height: 120px;
+      }
+
+      .tower.left { left: 24px; }
+      .tower.right { right: 24px; }
+      .bridge.one { left: 108px; }
+      .bridge.two { right: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster" aria-label="倒悬回廊 游戏海报">
+    <div class="moon"></div>
+    <div class="mist one"></div>
+    <div class="mist two"></div>
+    <div class="mist three"></div>
+    <div class="grain"></div>
+
+    <section class="headline">
+      <div class="meta">Gothic Illusion Corridor</div>
+      <h1 class="title">倒悬<br />回廊</h1>
+      <div class="tagline">月色不会指路。<br />真正通往祭坛的石阶，总藏在错误视角之后。</div>
+    </section>
+
+    <section class="scene" aria-hidden="true">
+      <div class="tower left"></div>
+      <div class="tower center"></div>
+      <div class="tower right"></div>
+      <div class="bridge one"></div>
+      <div class="bridge two"></div>
+      <div class="bridge three"></div>
+      <div class="stairs one"></div>
+      <div class="stairs two"></div>
+      <div class="rune one"></div>
+      <div class="rune two"></div>
+      <div class="rune three"></div>
+      <div class="altar"></div>
+      <div class="doll"></div>
+    </section>
+
+    <section class="copy">
+      <div class="panel">
+        <h3>暗黑哥特视觉错觉迷宫</h3>
+        <p>欧式古堡、悬空回廊、破碎石阶与倒悬建筑在低饱和冷月中彼此咬合。踩上符印，扭转相位；踏错一步，坍塌符文会直接吞没退路。</p>
+      </div>
+
+      <div class="panel chips">
+        <div class="chip">方向键移动</div>
+        <div class="chip">手机滑动触控</div>
+        <div class="chip">错位道路</div>
+        <div class="chip">消失符文</div>
+        <div class="chip">多关卡递进</div>
+      </div>
+
+      <div class="footer">
+        <div>Identity V Inspired</div>
+        <div class="seal">雾夜开启</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
