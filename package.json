@@ -42,7 +42,7 @@
       ]
     },
     "portable": {
-      "artifactName": "Inverted-Corridor-Portable-${version}.exe"
+      "artifactName": "Hanging-Corridor-Windows.exe"
     }
   }
 }
